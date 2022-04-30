@@ -2,7 +2,8 @@
 import streamlit as st
  
 # Title
-st.title("Hello Stranger !!!")
+st.title("Proyecto Flujo Maltifasico")
+st.text('Por: Daniela Camacho')
 
 # success
 st.success("Success")
