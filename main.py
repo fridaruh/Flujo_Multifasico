@@ -28,7 +28,7 @@ with col1:
     C6 = st.text_input('C6')
     C7 = st.text_input('C7+')
 
-    Total = H2S + float(CO2) + float(N2) + float(C1) + C2 + C3 + iC4 + nC4 + iC5 + nC5 + C6 + C7
+    Total = float(H2S) + float(CO2) + float(N2) + float(C1) + float(C2) + float(C3) + float(iC4) + float(nC4) + float(iC5) + float(nC5) + float(C6) + float(C7)
 
     st.info('Total: ' + str(Total))
     st.text('')
