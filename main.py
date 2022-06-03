@@ -35,7 +35,7 @@ with col1:
     st.text('Resultado de procesamiento:')
     if Total == '':
         st.error('Ingrese los datos')
-    elif int(Total) == 1:
+    elif float(Total) == 1:
         st.success('Datos correctos')
     else: 
         st.error('El total debe ser 1')
@@ -57,73 +57,145 @@ with col2:
     po_ce = st.text_input('po @ ce (gr/cm3)')
     api = st.text_input('°API')
 
-st.header('Resultados de las clasificaciones')
-
-st.text('Según Tabla de componentes a comparar:')
-
-st.text('Según Méndez:')
-
-st.text('Según Pérez:')
-
-st.text('Según Cronquist:')
-
-st.text('Según León-Alamilla:')
-
-# success
-#st.success("Success")
- 
-# success
-#st.info("Information")
- 
-# success
-#st.warning("Warning")
- 
-# success
-#st.error("Error")
-
-# first argument takes the titleof the selectionbox
-# second argument takes options
-#hobby = st.selectbox("Hobbies: ",
-#                     ['Dancing', 'Reading', 'Sports'])
-
-
+    
 ## Variables pre-calculadas ##
 
+#Tabla de componentes a comparar
+#inicializando las variables
+gas_seco_eval = 0
+gas_humedo_eval = 0
+gas_y_condensado_eval = 0
+aceite_cercano_al_punto_eval = 0
+aceite_volatil_eval = 0
+aceite_negro_eval = 0
+
+##Variables CO2
+
 Gas_seco_co2=0.10
-
 Gas_húmedo_co2=1.41
-
 Gas_y_condensado_co2=2.37
-
 Aceite_cercano_al_punto_critico_co2=1.3
-
 Aceite_volatil_co2=0.93
-
 Aceite_negro_co2=0.02
 
+###Evaluacion CO2
+CO2_list = [Gas_seco_co2,Gas_húmedo_co2,Gas_y_condensado_co2,Aceite_cercano_al_punto_critico_co2,Aceite_volatil_co2,Aceite_negro_co2]
+
+CO2_comparaciones=[]
+for co2 in CO2_list:
+    valor = abs(float(CO2) - float(co2)) 
+    CO2_comparaciones.append(valor)
+
+resultado_CO2_val = CO2_comparaciones.index(min(CO2_comparaciones))
+
+if resultado_CO2_val == 0:
+   gas_seco_eval= gas_seco_eval + 1
+elif resultado_CO2_val == 1:
+    gas_humedo_eval =+ 1
+elif resultado_CO2_val == 2:
+    gas_y_condensado_eval =+ 1
+elif resultado_CO2_val == 3:
+    aceite_cercano_al_punto_eval =+ 1
+elif resultado_CO2_val == 4:
+    aceite_volatil_eval =+ 1
+else:
+    aceite_negro_eval =+1
+
+#### Variables N2
+
 Gas_seco_N2=2.07
-
 Gas_húmedo_N2=0.25
-
 Gas_y_condensado_N2=0.31
-
 Aceite_cercano_al_punto_critico_N2=0.56
-
 Aceite_volatil_N2=0.21
-
 Aceite_negro_N2=0.34
 
+##### Evaluación N2
+
+N2_list = [Gas_seco_N2, Gas_húmedo_N2, Gas_y_condensado_N2, Aceite_cercano_al_punto_critico_N2, Aceite_volatil_N2, Aceite_negro_N2]
+
+N2_comparaciones = []
+for n2 in N2_list:
+    valor = abs(float(N2) - float(n2)) 
+    N2_comparaciones.append(valor)
+
+resultado_N2_val =N2_comparaciones.index(min(N2_comparaciones))
+
+if resultado_N2_val == 0:
+    gas_seco_eval = gas_seco_eval + 1
+elif resultado_N2_val == 1:
+    gas_humedo_eval = gas_humedo_eval + 1
+elif resultado_N2_val == 2:
+    gas_y_condensado_eval = gas_y_condensado_eval + 1
+elif resultado_N2_val == 3:
+    aceite_cercano_al_punto_eval = aceite_cercano_al_punto_eval + 1
+elif resultado_N2_val == 4:
+    aceite_volatil_eval = aceite_volatil_eval + 1
+else:
+    aceite_negro_eval = aceite_negro_eval +1
+
+###### Variables C1
+
 Gas_seco_C1=86.12
-
-Gas_húmedo_C1=92.46
-
+Gas_humedo_C1=92.46
 Gas_y_condensado_C1=73.19
-
 Aceite_cercano_al_punto_critico_C1=69.44
-
 Aceite_volatil_C1=58.77
-
 Aceite_negro_C1=34.62
+
+##### Evaluación C1
+
+C1_list = [Gas_seco_C1, Gas_humedo_C1, Gas_y_condensado_C1, Aceite_cercano_al_punto_critico_C1, Aceite_volatil_C1, Aceite_negro_C1]
+
+C1_comparaciones = []
+for c1 in C1_list:
+    valor = abs(float(C1) - float(c1)) 
+    C1_comparaciones.append(valor)
+
+resultado_C1_val =C1_comparaciones.index(min(C1_comparaciones))
+
+if resultado_C1_val == 0:
+    gas_seco_eval = gas_seco_eval + 1
+elif resultado_C1_val == 1:
+    gas_humedo_eval = gas_humedo_eval + 1
+elif resultado_C1_val == 2:
+    gas_y_condensado_eval = gas_y_condensado_eval + 1
+elif resultado_C1_val == 3:
+    aceite_cercano_al_punto_eval = aceite_cercano_al_punto_eval + 1
+elif resultado_C1_val == 4:
+    aceite_volatil_eval = aceite_volatil_eval + 1
+else:
+    aceite_negro_eval = aceite_negro_eval +1
+
+
+
+## Después de todas las evaluaciones
+
+evaluaciones = [gas_seco_eval,gas_humedo_eval,gas_y_condensado_eval,aceite_cercano_al_punto_eval,aceite_volatil_eval,aceite_negro_eval ]
+
+resultado_total_val = evaluaciones.index(max(evaluaciones))
+
+if resultado_total_val == 0:
+    resultante_tablas = 'Gas seco'
+elif resultado_total_val == 1:
+    resultante_tablas = 'Gas húmedo'
+elif resultado_total_val == 2:
+    resultante_tablas = 'Gas y condensado'
+elif resultado_total_val == 3:
+    resultante_tablas = 'Aceite cercano al punto crítico'
+elif resultado_total_val == 4:
+    resultante_tablas = 'Aceite volátil'
+else:
+    resultante_tablas = 'Aceite negro'
+
+
+
+
+
+
+
+
+
 
 Gas_seco_C2=5.91
 
@@ -421,3 +493,30 @@ Perez_C7_Aceite_negro=36>48
 Perez_C7_Aceite_volatil=12>21
 
 Perez_C7_Gas_y_condensado=0>14
+
+### Conteo de puntos para componentes a comparar
+
+### Conteo de puntos para Méndez
+
+### Conteo de puntos para Pérez
+
+### Conteo de puntos para Cronquist
+
+### Conteo de puntos para León-Alamilla
+
+
+################ Muestra de resultados
+
+st.header('Resultados de las clasificaciones')
+
+st.text(evaluaciones)
+
+st.text(f'Según Tabla de componentes a comparar: ' + resultante_tablas)
+
+st.text('Según Méndez:')
+
+st.text('Según Pérez:')
+
+st.text('Según Cronquist:')
+
+st.text('Según León-Alamilla:')
